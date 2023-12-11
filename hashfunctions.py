@@ -13,11 +13,18 @@ def create_hash(file_path, hash_type):
     #returning hash variable as hexadecimal value
     return hash.hexdigest()
 
-#Function to save hash to file specified in Main script
+#Function to save hash to file specified in Main script        
 def store_hash(file_path, hash_value, hashes_file):
+    #Open file with read option
+    with open(hashes_file, "r") as f:
+        for line in f:
+            #Returns without saving if hash exists
+            if line.startswith(hash_value):
+                return
     #Open file with writing option
     with open(hashes_file, "a") as f:
         f.write(f"{hash_value} {file_path}\n")
+
 
 #Function to compare filepath argument hash with stored hashes in file 
 def compare_hash(file_path, hash_value, hashes_file):
